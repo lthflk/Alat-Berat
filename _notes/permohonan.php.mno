@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_pk" value="name:id_pekerja;datatype:string,name:nmpekerja;datatype:string,name:jabatan;datatype:string,name:jk;datatype:string" />
+	<infoitem key="UD_pr" value="name:id_proyek;datatype:string,name:nmproyek;datatype:string,name:alamat;datatype:string" />
+	<infoitem key="UD_jn" value="name:kd_jenis;datatype:string,name:nmjenis;datatype:string,name:harga;datatype:int" />
+	<infoitem key="UD_permohonan" value="name:kd_permohonan;datatype:string,name:id_pekerja;datatype:string,name:id_proyek;datatype:string,name:kd_jenis;datatype:string,name:jumlah;datatype:string,name:harga;datatype:string,name:jangkawaktu;datatype:string,name:total;datatype:int" />
+	<infoitem key="UD_pekerja" value="name:id_pekerja;datatype:string,name:kd_jabatan;datatype:string,name:nmpekerja;datatype:string,name:jk;datatype:string" />
+	<infoitem key="UD_proyek" value="name:id_proyek;datatype:string,name:nmproyek;datatype:string,name:alamat;datatype:string" />
+	<infoitem key="UD_jenis" value="name:kd_jenis;datatype:string,name:nmjenis;datatype:string,name:harga;datatype:int" />
+	<infoitem key="UD_data" value="name:kd_permohonan;datatype:string,name:id_pekerja;datatype:string,name:id_proyek;datatype:string,name:nmproyek;datatype:string,name:nmpekerja;datatype:string" />
+</info>

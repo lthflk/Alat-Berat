@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_jn" value="name:kd_jabatan;datatype:string,name:ket;datatype:string" />
+	<infoitem key="UD_jb" value="name:kd_jabatan;datatype:string,name:ket;datatype:string" />
+</info>

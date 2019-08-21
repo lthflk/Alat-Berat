@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:id_pekerja;datatype:string,name:nmpekerja;datatype:string,name:jabatan;datatype:string,name:jk;datatype:string" />
+	<infoitem key="UD_pj" value="name:id_pekerja;datatype:string,name:kd_jabatan;datatype:string,name:nmpekerja;datatype:string,name:jk;datatype:string,name:kd_jabatan;datatype:string,name:ket;datatype:string" />
+	<infoitem key="UD_jb" value="name:kd_jabatan;datatype:string,name:ket;datatype:string" />
+</info>

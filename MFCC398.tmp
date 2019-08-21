@@ -1,0 +1,246 @@
+<?php require_once('Connections/koneksi.php'); ?>
+<?php require_once('Connections/koneksi.php'); ?>
+<?php
+error_reporting(0);
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+}
+
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
+  $insertSQL = sprintf("INSERT INTO permohonan (kd_permohonan, id_pekerja, id_proyek, kd_jenis, jumlah, harga, jangkawaktu) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                       GetSQLValueString($_POST['kd_permohonan'], "text"),
+                       GetSQLValueString($_POST['id_pekerja'], "text"),
+                       GetSQLValueString($_POST['id_proyek'], "text"),
+                       GetSQLValueString($_POST['kd_jenis'], "text"),
+                       GetSQLValueString($_POST['jumlah'], "text"),
+                       GetSQLValueString($_POST['harga'], "text"),
+                       GetSQLValueString($_POST['total'], "text"),
+                       GetSQLValueString($_POST['jangkawaktu'], "text"));
+
+  mysql_select_db($database_koneksi, $koneksi);
+  $Result1 = mysql_query($insertSQL, $koneksi) or die(mysql_error());
+
+  $insertGoTo = "#";
+  if (isset($_SERVER['QUERY_STRING'])) {
+    $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
+    $insertGoTo .= $_SERVER['QUERY_STRING'];
+  }
+  header(sprintf("Location: %s", $insertGoTo));
+}
+
+mysql_select_db($database_koneksi, $koneksi);
+$query_pk = "SELECT * FROM pekerja ORDER BY id_pekerja ASC";
+$pk = mysql_query($query_pk, $koneksi) or die(mysql_error());
+$row_pk = mysql_fetch_assoc($pk);
+$totalRows_pk = mysql_num_rows($pk);
+
+mysql_select_db($database_koneksi, $koneksi);
+$query_pr = "SELECT * FROM proyek ORDER BY id_proyek ASC";
+$pr = mysql_query($query_pr, $koneksi) or die(mysql_error());
+$row_pr = mysql_fetch_assoc($pr);
+$totalRows_pr = mysql_num_rows($pr);
+
+mysql_select_db($database_koneksi, $koneksi);
+$query_jn = "SELECT * FROM jenis ORDER BY kd_jenis ASC";
+$jn = mysql_query($query_jn, $koneksi) or die(mysql_error());
+$row_jn = mysql_fetch_assoc($jn);
+$totalRows_jn = mysql_num_rows($jn);
+
+mysql_select_db($database_koneksi, $koneksi);
+$query_permohonan = "SELECT * FROM permohonan ORDER BY kd_permohonan ASC";
+$permohonan = mysql_query($query_permohonan, $koneksi) or die(mysql_error());
+$row_permohonan = mysql_fetch_assoc($permohonan);
+$totalRows_permohonan = mysql_num_rows($permohonan);
+?>
+
+<h2>JENIS ALAT BERAT</h2>
+<form action="<?php echo $editFormAction; ?>" name="form1" method="POST">
+  <table width="100%" border="1">
+    <tr>
+      <td width="25%">Kode Permohonan</td>
+      <td width="75%"><label for="kd_permohonan"></label>
+      <input name="kd_permohonan" type="text" id="kd_permohonan" size="100"></td>
+    </tr>
+    <tr>
+      <td>Id Pekerja</td>
+      <td><label for="id_pekerja"></label>
+        <select name="id_pekerja" size="1" id="select1">
+        <option value="">Pilih Satu</option>
+        <?php
+do {  
+?>
+        <option value="<?php echo $row_pk['id_pekerja']?>"><?php echo $row_pk['nmpekerja']?></option>
+        <?php
+} while ($row_pk = mysql_fetch_assoc($pk));
+  $rows = mysql_num_rows($pk);
+  if($rows > 0) {
+      mysql_data_seek($pk, 0);
+	  $row_pk = mysql_fetch_assoc($pk);
+  }
+?>
+      </select></td>
+    </tr>
+    <tr>
+      <td>Id Proyek</td>
+      <td><label for="id_proyek"></label>
+        <select name="id_proyek" size="1" id="select2">
+          <option value="">Pilih Satu</option>
+          <?php
+do {  
+?>
+          <option value="<?php echo $row_pr['id_proyek']?>"><?php echo $row_pr['nmproyek']?></option>
+          <?php
+} while ($row_pr = mysql_fetch_assoc($pr));
+  $rows = mysql_num_rows($pr);
+  if($rows > 0) {
+      mysql_data_seek($pr, 0);
+	  $row_pr = mysql_fetch_assoc($pr);
+  }
+?>
+      </select>        <label for="jumlah"></label></td>
+    </tr>
+    <tr>
+      <td>Kode Jenis</td>
+      <td><label for="kd_jenis"></label>
+   
+        <select name="kd_jenis" size="1" id="select3">
+          <option value="">Pilih Satu</option>
+          <?php
+do {  
+?>
+          <option value="<?php echo $row_jn['kd_jenis']?>"><?php echo $row_jn['nmjenis']?></option>
+          <?php
+} while ($row_jn = mysql_fetch_assoc($jn));
+  $rows = mysql_num_rows($jn);
+  if($rows > 0) {
+      mysql_data_seek($jn, 0);
+	  $row_jn = mysql_fetch_assoc($jn);
+  }
+?>
+        </select>
+<label for="jumlah"></label></td>
+    </tr>
+    <tr>
+      <td>Jumlah</td>
+      <td><label for="jumlah"></label>
+      <input name="jumlah" type="text" id="jumlah" size="100" /></td>
+    </tr>
+      <tr>
+      <td>Harga</td>
+      <td><label for="harga"></label>
+      <input name="harga" type="text" id="harga" size="100" /></td>
+    </tr>
+      
+    
+      <tr>
+      <td>Jangka Waktu</td>
+      <td><label for="jangkawaktu"></label>
+      <input name="jangkawaktu" type="text" id="jangkawaktu" size="100" /></td></tr>
+
+      <tr><td></td>
+      <td><input type="submit" name="button" id="button" value="Submit" />&nbsp;&nbsp;
+        <input type="reset" name="button2" id="button2" value="Reset" /></td></tr>
+        
+  </table>
+  <input type="hidden" name="MM_insert" value="form1" />
+</form>
+<p>ISI</p>
+<table width="100%" border="1">
+  <tr>
+    <th>No</th>
+    <th>Kode Permohonan</th>
+    <th>Id Pekerja</th>
+    <th>Id Proyek</th>
+    <th>Kode Jenis</th>
+    <th>Jumlah</th>
+    <th>Harga</th>
+    <th>Jangka Waktu</th>
+    <th>Proses</th>
+  </tr>
+  <?php $no=1; do { ?>
+    <tr>
+      <td><?php echo $no++ ?> </td>
+      <td><?php echo $row_permohonan['kd_permohonan']; ?></td>
+      <td><?php echo $row_permohonan['id_pekerja']; ?></td>
+      <td><?php echo $row_permohonan['id_proyek']; ?></td>
+      <td><?php echo $row_permohonan['kd_jenis']; ?></td>
+      <td><?php echo $row_permohonan['jumlah']; ?></td>
+      <td><?php echo $row_permohonan['harga']; ?></td>
+      <td><?php echo $row_permohonan['jangkawaktu']; ?></td>
+      <td> <a href="?page=e_permohonan&kd_permohonan=<?php echo $row_permohonan['kd_permohonan']; ?>">Edit</a> - <a href="h_permohonan.php?kd_permohonan=<?php echo $row_permohonan['kd_permohonan']; ?>">Hapus</a></td>
+    </tr>
+    <?php } while ($row_permohonan = mysql_fetch_assoc($permohonan)); ?>
+</table>
+<p>&nbsp;</p>
+<?php
+mysql_free_result($pk);
+
+mysql_free_result($pr);
+
+mysql_free_result($jn);
+
+mysql_free_result($permohonan);
+?>

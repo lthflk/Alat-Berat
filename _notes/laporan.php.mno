@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_per" value="name:kd_permohonan;datatype:string,name:id_pekerja;datatype:string,name:id_proyek;datatype:string,name:kd_jenis;datatype:string,name:jumlah;datatype:string,name:harga;datatype:string,name:total;datatype:string,name:jangkawaktu;datatype:string,name:id_pekerja;datatype:string,name:nmpekerja;datatype:string,name:jabatan;datatype:string,name:jk;datatype:string,name:id_proyek;datatype:string,name:nmproyek;datatype:string,name:alamat;datatype:string,name:kd_jenis;datatype:string,name:nmjenis;datatype:string" />
+	<infoitem key="UD_carper" value="name:kd_permohonan;datatype:string,name:id_pekerja;datatype:string,name:id_proyek;datatype:string,name:kd_jenis;datatype:string,name:jumlah;datatype:string,name:harga;datatype:string,name:total;datatype:string,name:jangkawaktu;datatype:string,name:id_pekerja;datatype:string,name:nmpekerja;datatype:string,name:jabatan;datatype:string,name:jk;datatype:string,name:id_proyek;datatype:string,name:nmproyek;datatype:string,name:alamat;datatype:string,name:kd_jenis;datatype:string,name:nmjenis;datatype:string" />
+</info>
